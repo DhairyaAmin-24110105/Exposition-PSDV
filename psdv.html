@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Extracted Python Code</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        pre {
+            background: #222;
+            color: #fff;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <h1>Extracted Python Code</h1>
+    <pre>
+import pandas as pd
+
+df = pd.read_csv('Data.csv')
+
+# Convert PM2.5 values to numeric, forcing errors to NaN
+df['PM2.5'] = pd.to_numeric(df['PM2.5'], errors='coerce')
+
+# Remove missing values
+df = df.dropna(subset=['PM2.5'])
+
+# Group by State and calculate the average PM2.5 for each state
+state_avg_pm25 = df.groupby('state')['PM2.5'].mean()
+
+# Identify the state with the highest average PM2.5 concentration
+highest_state = state_avg_pm25.idxmax()
+highest_value = state_avg_pm25.max()
+
+print(f"State with highest average PM2.5: {highest_state} ({highest_value:.2f})")
+
+import pandas as pd
+df = pd.read_csv('Data.csv')
+
+# Convert 'Timestamp' to datetime format
+df['Timestamp'] = pd.to_datetime(df['Timestamp'], errors='coerce')
+
+# Extract the year and filter data for 2023 (Create a copy to avoid warnings)
+df_2023 = df[df['Timestamp'].dt.year == 2023].copy()
+
+# Convert PM2.5 values to numeric, handling errors
+df_2023['PM2.5'] = pd.to_numeric(df_2023['PM2.5'], errors='coerce')
+
+# Filter rows where PM2.5 values are above a threshold (e.g., 50)
+high_pm25 = df_2023[df_2023['PM2.5'] > 50]
+
+print(high_pm25)
+    </pre>
+</body>
+</html>
